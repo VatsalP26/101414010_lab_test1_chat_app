@@ -1,6 +1,8 @@
-Chat Application - Real-Time Chat App
-Developer: Vatsal Prajapati
-Student ID: 101414010
+Developer: Vatsal Prajapati <br>
+Student ID: 101414010 <br>
+
+Chat Application - Real-Time Chat App <br>
+
 
 Project Overview
 This project is a real-time chat application built using the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.io for real-time communication. The app allows users to join chat rooms, send messages, and even chat privately with other users.
@@ -16,6 +18,5 @@ Frontend: HTML, CSS (Bootstrap), JavaScript, React
 Backend: Node.js, Express.js, Socket.io, MongoDB
 Authentication: JWT (JSON Web Token) for securing login and user sessions
 
-![screenshots ]()
 
 ![alt text](<images/Screenshot 2025-02-05 194232.png>) ![alt text](<images/Screenshot 2025-02-05 194304.png>) ![alt text](<images/Screenshot 2025-02-05 194352.png>) ![alt text](<images/Screenshot 2025-02-05 194703.png>) ![alt text](<images/Screenshot 2025-02-05 194920.png>) ![alt text](<images/Screenshot 2025-02-05 195006.png>) ![alt text](<images/Screenshot 2025-02-05 195107.png>) ![alt text](<images/Screenshot 2025-02-05 195121.png>) ![alt text](<images/Screenshot 2025-02-05 195147.png>) ![alt text](<images/Screenshot 2025-02-05 195215.png>)
