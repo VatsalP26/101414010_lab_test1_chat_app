@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Signup</h2>
+    <form id="signupForm">
+      <input type="text" id="username" placeholder="Username" class="form-control mb-2" required />
+      <input type="text" id="firstname" placeholder="First Name" class="form-control mb-2" required />
+      <input type="text" id="lastname" placeholder="Last Name" class="form-control mb-2" required />
+      <input type="password" id="password" placeholder="Password" class="form-control mb-2" required />
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <p id="error" class="text-danger mt-2"></p>
+    <p class="mt-2">Already have an account? <a href="login.html">Login</a></p>
+  </div>
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const res = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          firstname: document.getElementById('firstname').value,
+          lastname: document.getElementById('lastname').value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = 'login.html';
+      } else {
+        document.getElementById("error").innerText = data.error;
+      }
+    });
+  </script>
+</body>
+</html>

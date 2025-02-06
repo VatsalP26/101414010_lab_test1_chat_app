@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .container:hover {
+    transform: scale(1.05);
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  h4 {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 1.5rem;
+  }
+  
+  label {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+  
+  button:hover {
+    background-color: #28a745;
+    transform: scale(1.05);
+  }
+  
+  input.form-control {
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  
+  input.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  select.form-select {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  
+  select.form-select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  #messages {
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  #messages:hover {
+    background-color: #f1f1f1;
+  }
+  
+  #chatBox {
+    display: none;
+  }
+  
+  #typingIndicator {
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  .private-chat {
+    margin-top: 25px;
+  }
+  
+  .private-chat input {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  
+  .private-chat input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .send-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .send-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .text-danger {
+    color: red;
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+  
+  .card {
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  form input {
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  
+  form input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  form button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  form p {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    .send-btn,
+    form button {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+  }
+  

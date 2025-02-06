@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Room</title>
+  <link rel="stylesheet" href="../styles/style.css" />
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Chat Application</h2>
+
+    <div>
+      <label>Select Room:</label>
+      <select id="roomSelect" class="form-select">
+        <option value="devops">DevOps</option>
+        <option value="cloud">Cloud Computing</option>
+        <option value="sports">Sports</option>
+      </select>
+      <button onclick="joinRoom()" class="btn btn-primary mt-2">Join</button>
+    </div>
+
+    <div class="mt-3">
+      <label>Private Chat (Enter Username):</label>
+      <input type="text" id="privateUser" class="form-control" placeholder="Enter username to chat privately" />
+    </div>
+
+    <div id="chatBox" class="mt-3" style="display: none;">
+      <h4 id="roomTitle"></h4>
+      <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;"></div>
+      <input type="text" id="message" class="form-control mt-2" placeholder="Type a message..." onkeypress="typing()" />
+      <button onclick="sendMessage()" class="btn btn-success mt-2">Send</button>
+      <p id="typingIndicator" class="text-muted"></p>
+      <button onclick="leaveRoom()" class="btn btn-danger mt-2">Leave Room</button>
+    </div>
+  </div>
+
+  <script>
+    const socket = io("http://localhost:5000");
+
+    let currentRoom = null;
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+      socket.emit("authenticate", token, (response) => {
+        console.log("Auth response:", response);
+        if (!response.success) {
+          alert("Authentication failed. Please login again.");
+          window.location.href = 'login.html';
+        }
+      });
+    });
+
+    // Function to join a room
+    function joinRoom() {
+      currentRoom = document.getElementById("roomSelect").value;
+      console.log("Attempting to join room:", currentRoom);
+      document.getElementById("roomTitle").innerText = `Room: ${currentRoom}`;
+      document.getElementById("chatBox").style.display = "block";
+      socket.emit("joinRoom", currentRoom);
+    }
+
+    // Function to send a message
+    function sendMessage() {
+      const message = document.getElementById("message").value;
+      const privateUser = document.getElementById("privateUser").value.trim();
+
+      if (message.trim() === "") return;
+
+      // Log what type of message is being sent
+      if (privateUser) {
+        console.log(`Sending private message to ${privateUser}:`, message);
+        socket.emit("sendMessage", { to_user: privateUser, message });
+      } else {
+        console.log(`Sending group message to room ${currentRoom}:`, message);
+        socket.emit("sendMessage", { room: currentRoom, message });
+      }
+
+      document.getElementById("message").value = "";
+    }
+
+    // Listen for incoming messages
+    socket.on("receiveMessage", (data) => {
+      console.log("Received message:", data);
+      let chatMsg;
+      if (data.room) {
+        chatMsg = `<p><strong>${data.from_user} (Room: ${data.room}):</strong> ${data.message}</p>`;
+      } else {
+        chatMsg = `<p><strong>${data.from_user} (Private):</strong> ${data.message}</p>`;
+      }
+      document.getElementById("messages").innerHTML += chatMsg;
+      const msgDiv = document.getElementById("messages");
+      msgDiv.scrollTop = msgDiv.scrollHeight;
+    });
+
+    function typing() {
+      console.log("Typing in room:", currentRoom);
+      socket.emit("typing", { room: currentRoom });
+    }
+
+    socket.on("showTyping", (data) => {
+      console.log("Typing indicator from:", data.user);
+      document.getElementById("typingIndicator").innerText = `${data.user} is typing...`;
+      setTimeout(() => {
+        document.getElementById("typingIndicator").innerText = "";
+      }, 2000);
+    });
+
+    // Leave room function
+    function leaveRoom() {
+      console.log("Leaving room:", currentRoom);
+      socket.emit("leaveRoom");
+      document.getElementById("chatBox").style.display = "none";
+      currentRoom = null;
+    }
+  </script>
+</body>
+</html>
